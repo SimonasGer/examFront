@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import "./header.scss"
 const Header = () => {
     const navigate = useNavigate();
     const username = localStorage.getItem("username")
@@ -21,27 +22,26 @@ const Header = () => {
         navigate("/users")
     }
     return(
-        <header className="bg-secondary d-flex justify-content-between">
-            <div>
-                <div className="d-inline m-1">
-                    {localStorage.getItem("token") && <button className="btn btn-secondary fs-1" onClick={handleMain}>Home</button>}
+        <header className="header">
+            <div className="header__left">
+                <div>
+                    {localStorage.getItem("token") && <button onClick={handleMain}>Home</button>}
                 </div>
-                <div className="d-inline m-1">
-                    {localStorage.getItem("token") && <button className="btn btn-secondary fs-1" onClick={handlePost}>Add</button>}
-                </div>
-            </div>
-            <div>
-            <div className="d-inline m-1">
-                    {localStorage.getItem("token") && <button className="btn btn-secondary fs-1" onClick={handleUsers}>Users</button>}
-                </div>
-                <div className="d-inline m-1">
-                    {localStorage.getItem("token") && <button className="btn btn-secondary fs-1" onClick={handleProfile}>{username}</button>}
-                </div>
-                <div className="d-inline m-1">
-                    {localStorage.getItem("token") && <button className="btn btn-secondary fs-1" onClick={handleLogout}>Log Out</button>}
+                <div>
+                    {localStorage.getItem("token") && <button onClick={handlePost}>Add</button>}
                 </div>
             </div>
-            
+            <div className="header__right">
+                <div>
+                    {localStorage.getItem("token") && <button onClick={handleUsers}>Users</button>}
+                </div>
+                <div>
+                    {localStorage.getItem("token") && <button onClick={handleProfile}>{username}</button>}
+                </div>
+                <div>
+                    {localStorage.getItem("token") && <button onClick={handleLogout}>Log Out</button>}
+                </div>
+            </div>
         </header>
     )
 }

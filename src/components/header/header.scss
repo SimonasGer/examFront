@@ -1,0 +1,33 @@
+.header{
+    background-color: crimson;
+    display: flex;
+    justify-content: space-between;
+    &__left{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        div{
+            button{
+                background-color: white;
+                width: 100px;
+                margin: 5px 0px 5px 10px;
+                border-radius: 5px;
+                border: none;
+                font-weight: bold;
+            }
+        }
+    }
+    &__right{
+        div{
+            button{
+                background-color: white;
+                width: 100px;
+                margin: 5px 10px 5px 0px;
+                border-radius: 5px;
+                border: none;
+                font-weight: bold;
+            }
+        }
+    }
+}
