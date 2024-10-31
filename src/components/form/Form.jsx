@@ -10,7 +10,7 @@ const Form = () => {
     const [category, setCategory] = useState("")
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("erroras")
+    const [error, setError] = useState("")
     const [post, setPost] = useState({
         title: "",
         description: "",
