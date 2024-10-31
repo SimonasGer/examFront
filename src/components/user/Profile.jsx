@@ -3,7 +3,7 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import Post from "../main/Post"
 import { jwtDecode } from "jwt-decode"
-
+import "./profile.scss"
 const Profile = () => {
     const userId = jwtDecode(localStorage.getItem("token")).id
     const [user, setUser] = useState({})
@@ -67,29 +67,25 @@ const Profile = () => {
     }
     return(
         <>
-        <section className="container d-flex flex-column justify-content-center align-items-center ">
-            <h2 className="my-5 fs-1">Categories</h2>
-            <article className="d-flex w-100 flex-wrap">
+        {localStorage.getItem("role") === "admin" && <section className="categories">
+            <h2>Delete Categories</h2>
+            <article>
             {categories.map(category => (
-                <button className="m-3" onClick={() => {handleDelete(category._id)}}>{category.category}</button>
+                <button onClick={() => {handleDelete(category._id)}}>{category.category}</button>
             ))}
             </article>
-        </section>
-        <section className="container d-flex flex-column justify-content-center align-items-center ">
-            <h2 className="my-5 fs-1">{user.username} Posts</h2>
-            <article className="d-flex w-100 flex-wrap">
+        </section>}
+        <section className="posts userPosts">
+            <h2>{user.username} Posts</h2>
             {posts.map(post => (
                 <Post title={post.title} description={post.description} price={post.price} image={post.image} _id={post._id}/>
             ))}
-            </article>
         </section>
-        <section className="container d-flex flex-column justify-content-center align-items-center ">
-            <h2 className="my-5 fs-1">{user.username} Likes</h2>
-            <article className="d-flex w-100 flex-wrap">
+        <section className="posts userPosts">
+            <h2>{user.username} Likes</h2>
             {likes.map(like => (
                 <Post title={like.title} description={like.description} price={like.price} image={like.image} _id={like._id}/>
             ))}
-            </article>
         </section>
         </>
     )

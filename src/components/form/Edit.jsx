@@ -3,7 +3,7 @@ import axios from "axios"
 import { url } from "../../utilities/backend"
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom";
-
+import "./form.scss"
 
 const Edit = () => {
     const [categories, setCategories] = useState([])
@@ -68,7 +68,7 @@ const Edit = () => {
           }
     }
     return(
-        <div>
+        <div className="addForm">
             <h2>Edit the post</h2>
             <form onSubmit={handleSubmit}>
                 <fieldset>

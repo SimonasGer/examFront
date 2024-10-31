@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios";
 import { url } from "../../utilities/backend";
 import Posts from "./Posts";
+import "./main.scss"
+
 const Main = () => {
     const navigate = useNavigate();
     const [search, setSearch] = useState("")
@@ -49,13 +51,13 @@ const Main = () => {
         }
     }
     return(
-        <main className="container">
-            <div className="container">
-                <input className="m-3" type="text" placeholder="Search" onChange={handleSearch}/>
+        <main className="main">
+            <div>
+                <input type="text" placeholder="Search" onChange={handleSearch}/>
                 <select name="category" id="category" onChange={handleCat}>
                     <option value="None">None</option>
                     {categories.map(category => (
-                        <option value={category._id}>{category.category}</option>
+                        <option key={category._id} value={category._id}>{category.category}</option>
                     ))}
                 </select>
             </div>

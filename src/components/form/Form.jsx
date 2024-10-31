@@ -10,11 +10,12 @@ const Form = () => {
     const [category, setCategory] = useState("")
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("erroras")
     const [post, setPost] = useState({
         title: "",
         description: "",
         image: "",
-        price: 0,
+        price: "",
         category: "",
         creator: jwtDecode(localStorage.getItem("token")).id
     })
@@ -24,7 +25,6 @@ const Form = () => {
             ...post,
             [e.target.name]: e.target.value
         })
-        console.log(post)
     }
 
     useEffect(() => {
@@ -48,6 +48,9 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(post.category === ''){
+            setError("Please select a category")
+        }
         try {
             await axios.post(`${url}/posts`, post, {
                 headers: {
@@ -70,7 +73,7 @@ const Form = () => {
             navigate('/');
           } catch (err) {
             console.error(err);
-          }
+        }
     }
     return(
         <>
@@ -78,18 +81,19 @@ const Form = () => {
                 <h2>Add Post</h2>
                 <fieldset>
                     <div>
-                        <input name="title" id="title" type="text" placeholder="Title" value={post.title} onChange={handleChange}/>
+                        <input name="title" id="title" type="text" placeholder="Title" value={post.title} required onChange={handleChange}/>
                         <label htmlFor="category">Categories</label>
                         <select name="category" id="category" onChange={handleChange}>
-                            <option value="None">None</option>
+                            <option value="None" selected disabled>None</option>
                             {categories.map(category => (
-                                <option value={category._id}>{category.category}</option>
+                                <option key={category._id} value={category._id}>{category.category}</option>
                             ))}
                         </select>
-                        <textarea name="description" id="description" placeholder="Description" value={post.description} onChange={handleChange}></textarea>
-                        <input name="price" id="price" type="number" placeholder="Price" value={post.price} onChange={handleChange}/>
-                        <input name="image" id="image" type="text" placeholder="Image Url" value={post.image} onChange={handleChange}/>
+                        <textarea required name="description" id="description" placeholder="Description" value={post.description} onChange={handleChange}></textarea>
+                        <input required name="price" id="price" type="number" placeholder="Price" value={post.price} onChange={handleChange}/>
+                        <input required name="image" id="image" type="text" placeholder="Image Url" value={post.image} onChange={handleChange}/>
                         <button type="submit">Post</button>
+                        <div>{error}</div>
                     </div>
                 </fieldset>
             </form>
@@ -98,7 +102,7 @@ const Form = () => {
                 <h2>Add Category</h2>
                 <fieldset>
                     <div>
-                        <input name="category" id="category" type="text" placeholder="Category" value={category} onChange={(e) => {setCategory(e.target.value)}}/>
+                        <input required name="category" id="category" type="text" placeholder="Category" value={category} onChange={(e) => {setCategory(e.target.value)}}/>
                         <button type="submit">Add category</button>
                     </div>
                 </fieldset>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { url } from "../../utilities/backend";
 import { useNavigate } from "react-router-dom";
+import "./users.scss"
 const Users = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([])
@@ -29,9 +30,9 @@ const Users = () => {
         navigate(`/user/${id}`)
     }
     return(
-        <section>
+        <section className="users">
             {users.map(user => (
-                    <button className="m-3" onClick={() => {handleUser(user._id)}}>{user.username}</button>
+                    <button onClick={() => {handleUser(user._id)}}>{user.username}</button>
                 ))}
         </section>
     )

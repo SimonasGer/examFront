@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { url } from "../../utilities/backend"
 import { jwtDecode } from "jwt-decode"
-
+import "./comment.scss"
 const Comment = (props) => {
     const [loading, setLoading] = useState(true)
     const [comment, setComment] = useState({})
@@ -128,15 +128,15 @@ const Comment = (props) => {
         }
     }
     return(
-        <article className={`border p-5`}  style={{ width: "100%", }}>
-            {(comment.creator ? comment.creator.username === localStorage.getItem("username") : false || localStorage.getItem("role") === "admin") && <div onClick={handleDelete} className="float-end">
+        <article className="comment">
+            {(comment.creator ? comment.creator.username === localStorage.getItem("username") : false || localStorage.getItem("role") === "admin") && <div onClick={handleDelete} className="comment__delete">
                 🗑
             </div>}
-            <div className="float-end" onClick={handleLike} style={{ color: like, fontSize: "20pt"}}>♥ {likes.length}</div>
+            <div className="comment__likes" onClick={handleLike} style={{ color: like, fontSize: "20pt"}}>♥ {likes.length}</div>
             <a href={`/user/${comment.creator ? comment.creator._id : ''}`}>
                 {comment.creator ? comment.creator.username : 'Unknown User'}
             </a>
-            <h2 style={{fontSize: "20px"}}>{comment.content}</h2>
+            <h2>{comment.content}</h2>
             {reply && 
                 <form onSubmit={handleSubmit}>
                     <fieldset>
@@ -148,7 +148,7 @@ const Comment = (props) => {
                         </div>
                     </fieldset>
                 </form>}
-            <button className="btn btn-success" onClick={handleReply}>{expand}</button>
+            <button onClick={handleReply}>{expand}</button>
             {replies.map(reply => (
                 <Comment _id={reply} loading={setLoading2}/>
             ))}

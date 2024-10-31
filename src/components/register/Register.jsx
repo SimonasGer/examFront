@@ -11,6 +11,7 @@ const Register = () => {
         password: "",
         confirmPasword: ""
     })
+    const [error, setError] = useState("")
 
     const handleChange = (e)=>{
         setUser({
@@ -30,6 +31,7 @@ const Register = () => {
             navigate('/');
           } catch (err) {
             console.error(err);
+            setError("An error has occured");
           }
     }
     return(
@@ -37,16 +39,16 @@ const Register = () => {
             <h2>Register</h2>
             <fieldset>
                     <div>
-                        <input type="text" name="username" id="username" placeholder="Username" value={user.username} onChange={handleChange}/>
+                        <input required type="text" name="username" id="username" placeholder="Username" value={user.username} onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={handleChange}/>
+                        <input required type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={handleChange}/>
+                        <input required type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" value={user.confirmPassword} onChange={handleChange}/>
+                        <input required type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" value={user.confirmPassword} onChange={handleChange}/>
                     </div>
                     <div >
                         <button type="submit">Register</button>
@@ -54,6 +56,7 @@ const Register = () => {
                     <div>
                         <a href="/login">Have an account?</a>
                     </div>
+                    <div>{error}</div>
             </fieldset>
         </form>
     )

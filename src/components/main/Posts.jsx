@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { url } from "../../utilities/backend";
 import Post from "./Post";
+import "./posts.scss"
 const Posts = (props) => {
     const [posts, setPosts] = useState([])
     let _and = ""
@@ -28,9 +29,9 @@ const Posts = (props) => {
     }, [props, _and])
 
     return(
-        <section className="d-flex flex-row flex-wrap">
+        <section className="posts">
             {posts.map(post => (
-                <Post title={post.title} description={post.description} price={post.price} image={post.image} _id={post._id}/>
+                <Post key={post._id} title={post.title} description={post.description} price={post.price} image={post.image} _id={post._id}/>
             ))}
         </section>
     )

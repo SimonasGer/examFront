@@ -10,6 +10,7 @@ const Login = () => {
         email: "",
         password: ""
     })
+    const [error, setError] = useState("")
 
     const handleChange = (e)=>{
         setUser({
@@ -28,6 +29,7 @@ const Login = () => {
             navigate('/');
           } catch (err) {
             console.error(err);
+            setError(err.response.data.message);
           }
     }
     return(
@@ -35,10 +37,10 @@ const Login = () => {
             <h2>Login</h2>
             <fieldset>
                     <div>
-                        <input type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={handleChange}/>
+                        <input required type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={handleChange}/>
+                        <input required type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={handleChange}/>
                     </div>
                     <div>
                         <button type="submit">Log In</button>
@@ -46,6 +48,7 @@ const Login = () => {
                     <div>
                         <a href="/register">Don't have an account?</a>
                     </div>
+                    <div>{error}</div>
             </fieldset>
         </form>
     )

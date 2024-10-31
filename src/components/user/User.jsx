@@ -45,14 +45,12 @@ const User = () => {
         }
     }
     return(
-        <section className="container d-flex flex-column justify-content-center align-items-center ">
-            {(localStorage.getItem("role") === "admin") && <button onClick={handleKill} className="my-5">Delete user</button>}
-            <h2 className="my-5 fs-1">{user.username} Postings</h2>
-            <article className="d-flex w-100 flex-wrap">
+        <section className="userPosts posts">
+            {(localStorage.getItem("role") === "admin") && <button onClick={handleKill}>Delete user</button>}
+            <h2>{user.username} Postings</h2>
             {posts.map(post => (
                 <Post title={post.title} description={post.description} price={post.price} image={post.image} _id={post._id}/>
             ))}
-            </article>
         </section>
     )
 }

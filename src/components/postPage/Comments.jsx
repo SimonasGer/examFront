@@ -1,11 +1,11 @@
 import Comment from "./Comment"
-
+import "./comments.scss"
 const Comments = (props) => {
     const comments = props.comments
     return(
-        <div className="w-100 my-5">
-            <h2 className="text-center">Comments</h2>
-            <div className="w-100">
+        <div className="comments">
+            <h2>Comments</h2>
+            <div>
                 {comments.map(comment => (
                     <Comment _id={comment} loading={props.loading}/>
                 ))}

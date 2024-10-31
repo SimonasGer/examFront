@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
 import Comments from "./Comments"
 import { useNavigate } from "react-router-dom"
+import "./postPage.scss"
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -106,37 +107,43 @@ const PostPage = () => {
     }
 
     return(
-        <section className="container d-flex flex-column align-items-center w-100">
-            <h2 className="fs-1 mt-4">{post.title}</h2>
-            {((post.creator ? post.creator.username === localStorage.getItem("username") : false) || (localStorage.getItem("role") === "admin")) && <button onClick={handleDelete}>Delete</button>}
-            {(post.creator ? post.creator.username === localStorage.getItem("username") : false) && <button onClick={() => {navigate(`/edit/${post._id}`)}}>Edit</button>}
-            <div className="mb-5">
-                <p className="d-inline fs-4 m-1">Created by:</p>
-                <a className="d-inline fs-4 m-1" href={`/user/${post.creator ? post.creator._id : ''}`}>
+        <section className="postPage">
+            <h2>{post.title}</h2>
+            <div className="postPage__buttons">
+                {((post.creator ? post.creator.username === localStorage.getItem("username") : false) || (localStorage.getItem("role") === "admin")) && <button onClick={handleDelete}>Delete</button>}
+                {(post.creator ? post.creator.username === localStorage.getItem("username") : false) && <button onClick={() => {navigate(`/edit/${post._id}`)}}>Edit</button>}
+            </div>
+            <div className="postPage__info">
+                <p>Created by:</p>
+                <a href={`/user/${post.creator ? post.creator._id : ''}`}>
                     {post.creator ? post.creator.username : 'Unknown User'}
                 </a>
-                <p className="d-inline fs-4 m-1">{post.category ? post.category.category : "None"}</p>
+                <p>Category: {post.category ? post.category.category : "None"}</p>
             </div>
-            <div className="w-75 text-center">
-                <img className="w-100" src={post.image} alt={post.image}/>
-                <div className="w-100 my-5 fs-2" style={{height: "auto"}}>{post.description}</div>
+            <div className="postPage__image">
+                <img src={post.image} alt={post.image}/>
             </div>
-            <button className="btn btn-primary mb-3">{post.price} eur</button>
-            <div>
+            <div className="postPage__description">
+                <div style={{height: "auto"}}>{post.description}</div>
+            </div>
+            <div className="postPage__price">
+                <button>{post.price} eur</button>
+            </div>
+            <div className="postPage__likes">
                 <span onClick={handleLike} style={{ color: like, fontSize: "40pt"}}>♥</span> {likes}
             </div>
             <form onSubmit={handleSubmit}>
-                <fieldset className="d-flex flex-column align-items-center">
-                    <div className="my-3">
+                <fieldset>
+                    <div>
                         <textarea style={{height: 150, width: 400}}
                          name="content" id="content" placeholder="Comment" value={comment.content} onChange={handleChange}></textarea>
                     </div>
                     <div>
-                        <button className="btn btn-primary" type="submit">Post Comment</button>
+                        <button type="submit">Post Comment</button>
                     </div>
                 </fieldset>
             </form>
-            <article className="w-100">
+            <article>
                 {post.comments && <Comments comments={post.comments} loading={setLoading}/>}
             </article>
         </section>

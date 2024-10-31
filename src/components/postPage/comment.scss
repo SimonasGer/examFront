@@ -1,0 +1,33 @@
+.comment{
+    border: solid;
+    border-width: 1px;
+    margin: 3px;
+    &__delete{
+        float: inline-end;
+    }
+    &__likes{
+        margin: 5px 0px 5px 5px;
+    }
+    a{
+        margin-left: 10px;
+        padding: 5px;
+        background-color: crimson;
+        color: white;
+        font-weight: bold;
+        border-radius: 3px;
+        border: none;
+        margin-bottom: 5px;
+        text-decoration: none;
+    }
+    button{
+        background-color: crimson;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            width: 120px;
+            height: 40px;
+            margin: 5px;
+          
+    }
+}
