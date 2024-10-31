@@ -129,7 +129,7 @@ const Comment = (props) => {
     }
     return(
         <article className="comment">
-            {(comment.creator ? comment.creator.username === localStorage.getItem("username") : false || localStorage.getItem("role") === "admin") && <div onClick={handleDelete} className="comment__delete">
+            {((comment.creator ? comment.creator.username === localStorage.getItem("username") : false) || (localStorage.getItem("role") === "admin")) && <div onClick={handleDelete} className="comment__delete">
                 🗑
             </div>}
             <div className="comment__likes" onClick={handleLike} style={{ color: like, fontSize: "20pt"}}>♥ {likes.length}</div>
