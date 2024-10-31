@@ -46,7 +46,7 @@ const User = () => {
     }
     return(
         <section className="userPosts posts">
-            {(localStorage.getItem("role") === "admin") && <button onClick={handleKill}>Delete user</button>}
+            {(localStorage.getItem("role") === "admin") && (user.username !== localStorage.getItem("username")) && <button onClick={handleKill}>Delete user</button>}
             <h2>{user.username} Postings</h2>
             {posts.map(post => (
                 <Post title={post.title} description={post.description} price={post.price} image={post.image} _id={post._id}/>
